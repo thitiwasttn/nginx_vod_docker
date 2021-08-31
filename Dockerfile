@@ -45,3 +45,6 @@ RUN ./configure --prefix=/usr/local/nginx \
 	--with-threads \
 	--with-cc-opt="-O3"
 RUN apt install make && make && make install
+
+# Then we start Nginx with command:
+RUN /usr/local/nginx/sbin/nginx
