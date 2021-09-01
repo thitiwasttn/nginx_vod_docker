@@ -56,9 +56,10 @@ RUN mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 WORKDIR /
 RUN mkdir videos
 
+# copy config nginx
 COPY nginx.conf /usr/local/nginx/conf/
 
 EXPOSE 80
 
-
+# start nginx when start container
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
