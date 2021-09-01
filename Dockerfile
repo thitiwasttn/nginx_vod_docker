@@ -26,6 +26,7 @@ apt install libswscale-dev -y
 # Akamai token validation module for validate token in video url (for authentication)
 # Secure token module for url token generation
 # Start by create folders for files we’re about to download
+RUN mkdir vod
 WORKDIR /vod
 RUN mkdir nginx nginx-vod-module nginx-akamai-token-validate-module nginx-secure-token-module
 
