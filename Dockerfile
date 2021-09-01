@@ -32,7 +32,7 @@ RUN mkdir nginx nginx-vod-module nginx-akamai-token-validate-module nginx-secure
 
 # The download and extract Nginx and module files
 RUN curl -sL https://nginx.org/download/nginx-1.16.1.tar.gz | tar -C /vod/nginx --strip 1 -xz
-RUN curl -sL https://github.com/kaltura/nginx-vod-module/archive/399e1a0ecb5b0007df3a627fa8b03628fc922d5e.tar.gz | tar -C /vod/nginx-vod-module --strip 1 -xz
+RUN curl -sL https://github.com/kaltura/nginx-vod-module/archive/9a152ae5373376ac5371f95d90b635208bb71598.tar.gz | tar -C /vod/nginx-vod-module --strip 1 -xz
 RUN curl -sL https://github.com/kaltura/nginx-akamai-token-validate-module/archive/1.1.tar.gz | tar -C /vod/nginx-akamai-token-validate-module --strip 1 -xz
 RUN curl -sL https://github.com/kaltura/nginx-secure-token-module/archive/1.4.tar.gz | tar -C /vod/nginx-secure-token-module --strip 1 -xz
 
