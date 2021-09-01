@@ -26,16 +26,17 @@ apt install libswscale-dev -y
 # Akamai token validation module for validate token in video url (for authentication)
 # Secure token module for url token generation
 # Start by create folders for files we’re about to download
+WORKDIR /vod
 RUN mkdir nginx nginx-vod-module nginx-akamai-token-validate-module nginx-secure-token-module
 
 # The download and extract Nginx and module files
-RUN curl -sL https://nginx.org/download/nginx-1.16.1.tar.gz | tar -C /nginx --strip 1 -xz
-RUN curl -sL https://github.com/kaltura/nginx-vod-module/archive/399e1a0ecb5b0007df3a627fa8b03628fc922d5e.tar.gz | tar -C /nginx-vod-module --strip 1 -xz
-RUN curl -sL https://github.com/kaltura/nginx-akamai-token-validate-module/archive/1.1.tar.gz | tar -C /nginx-akamai-token-validate-module --strip 1 -xz
-RUN curl -sL https://github.com/kaltura/nginx-secure-token-module/archive/1.4.tar.gz | tar -C /nginx-secure-token-module --strip 1 -xz
+RUN curl -sL https://nginx.org/download/nginx-1.16.1.tar.gz | tar -C /vod/nginx --strip 1 -xz
+RUN curl -sL https://github.com/kaltura/nginx-vod-module/archive/399e1a0ecb5b0007df3a627fa8b03628fc922d5e.tar.gz | tar -C /vod/nginx-vod-module --strip 1 -xz
+RUN curl -sL https://github.com/kaltura/nginx-akamai-token-validate-module/archive/1.1.tar.gz | tar -C /vod/nginx-akamai-token-validate-module --strip 1 -xz
+RUN curl -sL https://github.com/kaltura/nginx-secure-token-module/archive/1.4.tar.gz | tar -C /vod/nginx-secure-token-module --strip 1 -xz
 
 # Run installation command: configure, make and make install
-WORKDIR /nginx
+WORKDIR /vod/nginx
 RUN ./configure --prefix=/usr/local/nginx \
 	--add-module=../nginx-vod-module \
 	--add-module=../nginx-akamai-token-validate-module \
@@ -53,8 +54,8 @@ RUN apt install make && make && make install
 RUN mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 
 # create videos dir
-WORKDIR /
 RUN mkdir videos
+ADD meeting-1280.mp4 /vod/videos/test.mp4
 
 # copy config nginx
 COPY nginx.conf /usr/local/nginx/conf/
