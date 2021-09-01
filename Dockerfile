@@ -47,4 +47,18 @@ RUN ./configure --prefix=/usr/local/nginx \
 RUN apt install make && make && make install
 
 # Then we start Nginx with command:
-RUN /usr/local/nginx/sbin/nginx
+# RUN /usr/local/nginx/sbin/nginx
+
+# backup original config
+RUN mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
+
+# create videos dir
+WORKDIR /
+RUN mkdir videos
+
+COPY nginx.conf /usr/local/nginx/conf/
+
+EXPOSE 80
+
+
+CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
