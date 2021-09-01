@@ -56,7 +56,7 @@ RUN mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 
 # create videos dir
 RUN mkdir videos
-ADD meeting-1280.mp4 /vod/videos/test.mp4
+# ADD meeting-1280.mp4 /vod/videos/test.mp4
 
 # copy config nginx
 COPY nginx.conf /usr/local/nginx/conf/
