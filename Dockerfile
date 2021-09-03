@@ -31,10 +31,10 @@ WORKDIR /vod
 RUN mkdir nginx nginx-vod-module nginx-akamai-token-validate-module nginx-secure-token-module
 
 # The download and extract Nginx and module files
-RUN curl -sL https://nginx.org/download/nginx-1.16.1.tar.gz | tar -C /vod/nginx --strip 1 -xz
-RUN curl -sL https://github.com/kaltura/nginx-vod-module/archive/9a152ae5373376ac5371f95d90b635208bb71598.tar.gz | tar -C /vod/nginx-vod-module --strip 1 -xz
-RUN curl -sL https://github.com/kaltura/nginx-akamai-token-validate-module/archive/1.1.tar.gz | tar -C /vod/nginx-akamai-token-validate-module --strip 1 -xz
-RUN curl -sL https://github.com/kaltura/nginx-secure-token-module/archive/1.4.tar.gz | tar -C /vod/nginx-secure-token-module --strip 1 -xz
+RUN curl -sL https://nginx.org/download/nginx-1.16.1.tar.gz | tar -C /vod/nginx --strip 1 -xz && \
+curl -sL https://github.com/kaltura/nginx-vod-module/archive/9a152ae5373376ac5371f95d90b635208bb71598.tar.gz | tar -C /vod/nginx-vod-module --strip 1 -xz && \
+curl -sL https://github.com/kaltura/nginx-akamai-token-validate-module/archive/1.1.tar.gz | tar -C /vod/nginx-akamai-token-validate-module --strip 1 -xz && \
+curl -sL https://github.com/kaltura/nginx-secure-token-module/archive/1.4.tar.gz | tar -C /vod/nginx-secure-token-module --strip 1 -xz
 
 # Run installation command: configure, make and make install
 WORKDIR /vod/nginx
@@ -45,9 +45,9 @@ RUN ./configure --prefix=/usr/local/nginx \
 	--with-http_ssl_module \
 	--with-file-aio \
 	--with-threads \
-	--with-cc-opt="-O3"
-RUN apt install make && make && make install
-
+	--with-cc-opt="-O3" && \
+apt install make && make && make install && \
+rm -rf /usr/local/nginx/html /usr/local/nginx/conf/*.default
 # Then we start Nginx with command:
 # RUN /usr/local/nginx/sbin/nginx
 
